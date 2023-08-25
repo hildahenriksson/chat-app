@@ -1,0 +1,38 @@
+
+Root navigator
+- if not logged in, show auth navigator
+- if logged in, show app navigator
+
+Auth navigator (stack navigator)
+1. Log in page
+2. Register page
+
+App navigator (drawer navigator)
+1. Chat page
+2. Profile page
+
+Profile page (bottom tab navigator)
+
+
+
+Nav map:
+
+<RootNavigator>
+    <AuthNavigator> //Stack
+    </AuthNavigator>
+    <AppNavigator> //Drawer
+        <BottomTabNavigator>
+        </BottomTabNavigator>
+    </AppNavigator>
+</RootNavigator>
+
+
+
+Pages:
+
+- Log in
+- Register
+- Chat
+- Profile
+- Camera?
+- Settings? (night mode !!!!!)
