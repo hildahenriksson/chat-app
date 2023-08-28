@@ -9,23 +9,26 @@ export const AuthProvider = ({children}) => {
 
     
 
-    const handleLogin = async () => {
+    const handleLogin = async (usernameInput, passwordInput) => {
         try {
             const response = await fetch('https://chat-api-with-auth.up.railway.app/auth/token',
             {   method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
-                    username: 'abc',
-                    password: '123'
+                    username: usernameInput,
+                    password: passwordInput
                 })
             })
             const data = await response.json();
 
             if(data.status === 200) {
+                console.log(data)
                 await AsyncStorage.setItem('accessToken', data.data.accessToken)
                 setAccessToken(data.data.accessToken)
+            } else {
+                console.log(data.message)
             }
-            
+
         } catch(error) {
             console.log(error)
         }

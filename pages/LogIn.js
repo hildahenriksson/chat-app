@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, View, TextInput, Button, Pressable } from 'react-native';
+import { AuthContext } from '../contexts/AuthContext';
 
 const LogIn = ({navigation}) => {
+    const {handleLogin} = useContext(AuthContext);
+
+    const [usernameInput, setUsernameInput] = useState('');
+    const [passwordInput, setPasswordInput] = useState('');
+
   return (
     <View style={styles.container}>
         <Text>Log in</Text>
@@ -9,17 +15,17 @@ const LogIn = ({navigation}) => {
             style={styles.input}
             placeholder='Username'
             
-            onChangeText={newText => setInput(newText)}
+            onChangeText={newText => setUsernameInput(newText)}
         ></TextInput>
         <TextInput
             style={styles.input}
             placeholder='Password'
             
-            onChangeText={newText => setInput(newText)}
+            onChangeText={newText => setPasswordInput(newText)}
         ></TextInput>
         <Pressable
             style={styles.button}
-            onPress={() => navigation.navigate('')}
+            onPress={() => handleLogin(usernameInput, passwordInput)}
         >
             <Text>Log in</Text>
         </Pressable>
