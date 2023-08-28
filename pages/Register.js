@@ -1,24 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native';
 
 const Register = () => {
+    const [usernameInput, setUsernameInput] = useState('');
+    const [passwordInput, setPasswordInput] = useState('');
+
+    const handleRegister = async () => {
+        try {
+            const response = await fetch('https://chat-api-with-auth.up.railway.app/auth/token',
+            {   method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    username: usernameInput,
+                    password: passwordInput
+                })
+            })
+            const data = await response.json();
+
+            if(data.status === 200) {
+                console.log(data)
+                navigation.navigate('LogIn')
+            }
+            
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
   return (
     <View style={styles.container}>
         <TextInput
             style={styles.input}
             placeholder='Username'
             
-            onChangeText={newText => setInput(newText)}
+            onChangeText={newText => setUsernameInput(newText)}
         ></TextInput>
         <TextInput
             style={styles.input}
             placeholder='Password'
             
-            onChangeText={newText => setInput(newText)}
+            onChangeText={newText => setPasswordInput(newText)}
         ></TextInput>
         <Pressable
             style={styles.button}
-            onPress={() => navigation.navigate('Register')}
+            onPress={() => handleRegister()}
         >
             <Text>Register</Text>
         </Pressable>
