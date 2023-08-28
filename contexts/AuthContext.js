@@ -46,6 +46,7 @@ export const AuthProvider = ({children}) => {
     const isLoggedIn = async () => {
         try {
             const token = await AsyncStorage.getItem('accessToken')
+            console.log('token' + token)
             setAccessToken(token)
         } catch(error) {
             console.log(error)

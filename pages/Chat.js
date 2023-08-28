@@ -1,14 +1,53 @@
-import React from 'react'
-import { View, Text, StyleSheet, Pressable, TextInput } from 'react-native'
+import React, {useContext, useEffect, useState} from 'react'
+import { AuthContext } from '../contexts/AuthContext';
+import { View, Text, StyleSheet, Pressable, TextInput, FlatList } from 'react-native'
 
 const Chat = () => {
+  const {accessToken} = useContext(AuthContext);
+
+  const [allMessages, setAllMessages] = useState([]);
+
+  const getAllMessages = async () => {
+    try {
+      const response = await fetch('https://chat-api-with-auth.up.railway.app/messages',
+      {   method: 'GET',
+          headers: {'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`},
+          
+      })
+      const data = await response.json();
+
+      if(data.status === 200) {
+          console.log(data)
+          setAllMessages(data)
+          
+      } else {
+          console.log(data.message)
+      }
+
+    } catch(error) {
+        console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getAllMessages()
+}, [])
+
   return (
     <View style={styles.container}>
-      <View style={styles.chatBox}></View>
+      <View style={styles.chatBox}>
+        <FlatList data={allMessages} renderItem={({item}) => (
+            <View style={styles.message}>
+                <Text>{item.content}</Text>
+                <Text>{item.date}</Text>
+            </View>
+        )}/>
+      </View>
       <View style={styles.inputBox}>
         <TextInput
             style={styles.input}
-            placeholder='Password'
+            placeholder='Write'
             
         ></TextInput>
         <Pressable
@@ -32,6 +71,9 @@ const styles = StyleSheet.create({
       width: '100%',
       height: 600,
       backgroundColor: 'lightblue'
+    },
+    message: {
+      backgroundColor: 'white'
     },
     inputBox: {
       width: '100%',
