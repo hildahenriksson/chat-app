@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native';
 
-const Register = () => {
+const Register = (navigation) => {
     const [usernameInput, setUsernameInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
 
     const handleRegister = async () => {
         try {
-            const response = await fetch('https://chat-api-with-auth.up.railway.app/auth/token',
+            const response = await fetch('https://chat-api-with-auth.up.railway.app/auth/register',
             {   method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
@@ -19,7 +19,9 @@ const Register = () => {
 
             if(data.status === 200) {
                 console.log(data)
-                navigation.navigate('LogIn')
+                // Go back to log in
+            } else {
+                console.log(data.message)
             }
             
         } catch(error) {
