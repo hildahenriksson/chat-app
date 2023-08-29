@@ -5,14 +5,12 @@ import { View, Text, StyleSheet, Pressable, TextInput, FlatList } from 'react-na
 const Chat = () => {
   const {accessToken, userId} = useContext(AuthContext);
 
-  console.log(userId)
-
   const [allMessages, setAllMessages] = useState([]);
+  const [messageInput, setMessageInput] = useState('');
 
   
 
   const deleteMessage = async (id) => {
-    console.log('delete' + id)
     try {
       const response = await fetch('https://chat-api-with-auth.up.railway.app/'+id,
       {   method: 'DELETE',
@@ -20,13 +18,12 @@ const Chat = () => {
           'Authorization': `Bearer ${accessToken}`},   
       })
 
-      // if(data.status === 200) {
-      //     console.log(data)
-      //     setAllMessages(data)
+      if(data.status === 200) {
+          console.log('deleted' + id)
           
-      // } else {
-      //     console.log(data.message)
-      // }
+      } else {
+          console.log(data.message)
+      }
 
     } catch(error) {
         console.log(error)
@@ -46,11 +43,31 @@ const Chat = () => {
       const data = await response.json();
 
       if(data.status === 200) {
-          console.log(data)
-          console.log(data.data)
-          console.log('userid' + data.data[1].user._id)
           
           setAllMessages(data.data)
+          
+      } else {
+          console.log(data.message)
+      }
+
+    } catch(error) {
+        console.log(error)
+    }
+  }
+
+  const createMessage = async () => {
+    try {
+      const response = await fetch('https://chat-api-with-auth.up.railway.app/messages',
+      {   method: 'POST',
+          headers: {'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`},
+          body: JSON.stringify({content: messageInput})
+      })
+
+      const data = await response.json();
+
+      if(data.status === 201) {
+          console.log('success')
           
       } else {
           console.log(data.message)
@@ -89,12 +106,12 @@ const Chat = () => {
         <TextInput
             style={styles.input}
             placeholder='Write'
+            onChangeText={newText => setMessageInput(newText)}
             
         ></TextInput>
         <Pressable
             style={styles.button}
-            
-        >
+            onPress={() => createMessage()}>
             <Text>Send</Text>
         </Pressable>
       </View>
