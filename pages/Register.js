@@ -18,7 +18,7 @@ const Register = (navigation) => {
             const data = await response.json();
 
             if(data.status === 200) {
-                console.log(data)
+                console.log('register ok')
                 // Go back to log in
             } else {
                 console.log(data.message)
