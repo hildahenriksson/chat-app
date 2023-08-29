@@ -78,6 +78,14 @@ const Chat = () => {
     }
   }
 
+  const formateDate = (date) => {
+    const newDate = date.slice(0,10);
+    const newTime = date.slice(11,16)
+
+
+    return newDate + ' ' + newTime
+  }
+
   useEffect(() => {
     getAllMessages()
   }, [])
@@ -86,18 +94,16 @@ const Chat = () => {
     <View style={styles.container}>
       <View style={styles.chatBox}>
         <FlatList data={allMessages} renderItem={({item}) => (
-            <View style={styles.message}>
+            <View style={[styles.message, item.user?._id === userId ? styles.right : styles.left]}>
+                <View style={styles.messageInfo}>
+                  <Text>{item.user?.username}</Text><Text>{formateDate(item.date)}</Text>
+                </View>
                 <Pressable onLongPress={() => deleteMessage(item._id)} style={[styles.textfield,
                 
-                item.user?._id === userId ? styles.right : styles.left]
+                item.user?._id === userId ? styles.rightContent : styles.leftContent]
                 }><Text>{item.content}</Text>
                 
                 </Pressable>
-
-                
-
-                <Text>{item.date}</Text>
-                <Text>{item.user?._id}</Text>
 
             </View>
         )}/>
@@ -122,21 +128,26 @@ const Chat = () => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: 'lightgrey',
       alignItems: 'center',
+      flexDirection: 'column'
     },
     chatBox: {
       width: '100%',
-      height: 600,
-      backgroundColor: 'lightblue'
+      // height: 600,
+      backgroundColor: 'lightgrey',
+      flex: 15
     },
     message: {
-      backgroundColor: 'white',
+      marginVertical: 10,
+    },
+    messageInfo: {
+      flexDirection: 'row',
+      gap: 10
     },
     textfield: {
-      backgroundColor: 'lightgrey',
       padding: 10,
-      borderRadius: '20%'
+      borderRadius: '20%',
     },
     left: {
       alignSelf: 'flex-start',
@@ -144,21 +155,33 @@ const styles = StyleSheet.create({
     right: {
       alignSelf: 'flex-end',
     },
+    leftContent: {
+      backgroundColor: '#fff',
+      alignSelf: 'flex-start'
+    },
+    rightContent: {
+      backgroundColor: 'blue',
+      alignSelf: 'flex-end'
+    },
     inputBox: {
-      width: '100%',
-      height: 100,
-      flexDirection: 'row'
+      flexDirection: 'row',
+      backgroundColor: '#fff',
+      flex: 1,
+      padding: 10,
+      marginHorizontal: 20,
+      marginBottom: 20,
+      borderRadius: '30%',
+      alignItems: 'center',
     },
     input: {
-      backgroundColor: 'pink',
-      borderRadius: '20%',
-      padding: 20,
       flex: 5
     },
     button: {
-      backgroundColor: 'green',
-      borderRadius: '20%',
-      padding: 20,
+      backgroundColor: 'lightblue',
+      height: '90%',
+      borderRadius: '30%',
+      alignItems: 'center',
+      justifyContent: 'center',
       flex: 1
     }
 });
