@@ -18,7 +18,7 @@ const Chat = () => {
       const data = await response.json();
 
       if(data.status === 200) {
-          console.log(data)
+          // console.log(data)
           setAllMessages(data)
           
       } else {
@@ -39,7 +39,9 @@ const Chat = () => {
       <View style={styles.chatBox}>
         <FlatList data={allMessages.data} renderItem={({item}) => (
             <View style={styles.message}>
-                <View style={styles.textfield}><Text>{item.content}</Text></View>
+                <View style={[styles.textfield, 
+                item._id === '64ec67e72c0cc89d01fe2134' ? styles.right : styles.left]
+                }><Text>{item.content}</Text></View>
                 <Text>{item.date}</Text>
             </View>
         )}/>
@@ -77,9 +79,14 @@ const styles = StyleSheet.create({
     },
     textfield: {
       backgroundColor: 'lightgrey',
-      alignSelf: 'flex-start',
       padding: 10,
       borderRadius: '20%'
+    },
+    left: {
+      alignSelf: 'flex-start',
+    },
+    right: {
+      alignSelf: 'flex-end',
     },
     inputBox: {
       width: '100%',
