@@ -1,10 +1,19 @@
-import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React, { useContext } from 'react'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { AuthContext } from '../contexts/AuthContext';
 
 const Profile = () => {
+  const {handleLogout} = useContext(AuthContext);
+
   return (
     <View style={styles.container}>
         <Text>Profile</Text>
+        <Pressable
+            style={styles.button}
+            onPress={() => handleLogout()}
+        >
+            <Text>Log Out</Text>
+        </Pressable>
     </View>
   )
 }

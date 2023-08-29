@@ -3,7 +3,9 @@ import { AuthContext } from '../contexts/AuthContext';
 import { View, Text, StyleSheet, Pressable, TextInput, FlatList } from 'react-native'
 
 const Chat = () => {
-  const {accessToken} = useContext(AuthContext);
+  const {accessToken, userId} = useContext(AuthContext);
+
+  console.log(userId)
 
   const [allMessages, setAllMessages] = useState([]);
 
@@ -18,7 +20,7 @@ const Chat = () => {
       const data = await response.json();
 
       if(data.status === 200) {
-          // console.log(data)
+          console.log(data)
           setAllMessages(data)
           
       } else {
@@ -39,8 +41,8 @@ const Chat = () => {
       <View style={styles.chatBox}>
         <FlatList data={allMessages.data} renderItem={({item}) => (
             <View style={styles.message}>
-                <View style={[styles.textfield, 
-                item._id === '64ec67e72c0cc89d01fe2134' ? styles.right : styles.left]
+                <View style={styles.textfield 
+                // item.user._id === userId ? styles.right : styles.left]
                 }><Text>{item.content}</Text></View>
                 <Text>{item.date}</Text>
             </View>
