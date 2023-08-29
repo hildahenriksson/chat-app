@@ -32,14 +32,14 @@ const Chat = () => {
 
   useEffect(() => {
     getAllMessages()
-}, [])
+  }, [])
 
   return (
     <View style={styles.container}>
       <View style={styles.chatBox}>
-        <FlatList data={allMessages} renderItem={({item}) => (
+        <FlatList data={allMessages.data} renderItem={({item}) => (
             <View style={styles.message}>
-                <Text>{item.content}</Text>
+                <View style={styles.textfield}><Text>{item.content}</Text></View>
                 <Text>{item.date}</Text>
             </View>
         )}/>
@@ -73,7 +73,13 @@ const styles = StyleSheet.create({
       backgroundColor: 'lightblue'
     },
     message: {
-      backgroundColor: 'white'
+      backgroundColor: 'white',
+    },
+    textfield: {
+      backgroundColor: 'lightgrey',
+      alignSelf: 'flex-start',
+      padding: 10,
+      borderRadius: '20%'
     },
     inputBox: {
       width: '100%',
