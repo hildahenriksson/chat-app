@@ -9,6 +9,32 @@ const Chat = () => {
 
   const [allMessages, setAllMessages] = useState([]);
 
+  
+
+  const deleteMessage = async (id) => {
+    console.log('delete' + id)
+    try {
+      const response = await fetch('https://chat-api-with-auth.up.railway.app/'+id,
+      {   method: 'DELETE',
+          headers: {'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`},   
+      })
+
+      // if(data.status === 200) {
+      //     console.log(data)
+      //     setAllMessages(data)
+          
+      // } else {
+      //     console.log(data.message)
+      // }
+
+    } catch(error) {
+        console.log(error)
+    }
+  }
+
+  
+
   const getAllMessages = async () => {
     try {
       const response = await fetch('https://chat-api-with-auth.up.railway.app/messages',
@@ -21,7 +47,10 @@ const Chat = () => {
 
       if(data.status === 200) {
           console.log(data)
-          setAllMessages(data)
+          console.log(data.data)
+          console.log('userid' + data.data[1].user._id)
+          
+          setAllMessages(data.data)
           
       } else {
           console.log(data.message)
@@ -39,12 +68,20 @@ const Chat = () => {
   return (
     <View style={styles.container}>
       <View style={styles.chatBox}>
-        <FlatList data={allMessages.data} renderItem={({item}) => (
+        <FlatList data={allMessages} renderItem={({item}) => (
             <View style={styles.message}>
-                <View style={styles.textfield 
-                // item.user._id === userId ? styles.right : styles.left]
-                }><Text>{item.content}</Text></View>
+                <Pressable onLongPress={() => deleteMessage(item._id)} style={[styles.textfield,
+                
+                item.user?._id === userId ? styles.right : styles.left]
+                }><Text>{item.content}</Text>
+                
+                </Pressable>
+
+                
+
                 <Text>{item.date}</Text>
+                <Text>{item.user?._id}</Text>
+
             </View>
         )}/>
       </View>
