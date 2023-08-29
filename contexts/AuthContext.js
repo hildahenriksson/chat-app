@@ -5,7 +5,7 @@ export const AuthContext = createContext()
 
 export const AuthProvider = ({children}) => {
 
-    const [accessToken, setAccessToken] = useState(true);
+    const [accessToken, setAccessToken] = useState(null);
 
     
 
@@ -23,8 +23,8 @@ export const AuthProvider = ({children}) => {
 
             if(data.status === 200) {
                 console.log(data)
-                await AsyncStorage.setItem('accessToken', data.data.accessToken)
-                setAccessToken(data.data.accessToken)
+                await AsyncStorage.setItem('accessToken', data.accessToken)
+                setAccessToken(data.accessToken)
             } else {
                 console.log(data.message)
             }
@@ -46,6 +46,7 @@ export const AuthProvider = ({children}) => {
     const isLoggedIn = async () => {
         try {
             const token = await AsyncStorage.getItem('accessToken')
+            console.log('TOKEN' + token)
             setAccessToken(token)
         } catch(error) {
             console.log(error)
