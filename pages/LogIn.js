@@ -68,9 +68,6 @@ const styles = StyleSheet.create({
         fontSize: '30',
         fontWeight: 'bold'
     },
-    inputBox: {
-        
-    },
     input: {
         width: 250,
         height: 40,
