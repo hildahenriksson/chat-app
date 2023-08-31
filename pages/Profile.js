@@ -6,10 +6,15 @@ const Profile = () => {
   const {handleLogout} = useContext(AuthContext);
   const [firstname, setFirstname] = useState('Hilda');
   const [lastname, setLastname] = useState('Henriksson');
+  const [popupVisible, setPopupVisible] = useState(false);
 
-  const editUsername = () => {
+  const toggleVisibility = () => {
+    setPopupVisible(current => !current);
+  };
+
+  useEffect(() => {
     
-  }
+  }, [toggleVisibility])
 
   return (
     <View style={styles.container}>
@@ -17,7 +22,7 @@ const Profile = () => {
           <Text style={styles.username}>{firstname} {lastname}</Text>
           <Pressable
               style={styles.editButton}
-              onPress={() => editUsername()}
+              onPress={() => toggleVisibility()}
           >
               <Text>R</Text>
           </Pressable>
@@ -31,7 +36,7 @@ const Profile = () => {
         </Pressable>
 
 
-        <View style={styles.popUp}>
+        <View style={[styles.popUp, popupVisible ? styles.visible : null]}>
             <Text style={styles.popupHeading}>Edit username</Text>
             <Text>Firstname</Text>
             <TextInput
@@ -39,7 +44,7 @@ const Profile = () => {
                 placeholder='Firstname'
                 value={firstname}
                 
-                onChangeText={newText => setFirstname()}
+                onChangeText={newText => setFirstname(newText)}
             ></TextInput>
             <Text>Lastname</Text>
             <TextInput
@@ -47,11 +52,11 @@ const Profile = () => {
                 placeholder='Lastname'
                 value={lastname}
                 
-                onChangeText={newText => setLastname}
+                onChangeText={newText => setLastname(newText)}
             ></TextInput>
             <Pressable
             style={styles.saveButton}
-            onPress={() => handleUpdate()}
+            onPress={() => toggleVisibility()}
         >
             <Text>Save</Text>
         </Pressable>
@@ -92,12 +97,14 @@ const styles = StyleSheet.create({
       backgroundColor: 'lightgrey',
       width: 300,
       height: 350,
-      position: 'fixed',
+      position: 'absolute',
       flex: 1,
       padding: 30,
       justifyContent: 'center',
       display: 'none',
-
+    },
+    visible: {
+      display: 'block',
     },
     popupHeading: {
       fontSize: 20,
