@@ -70,11 +70,11 @@ const styles = StyleSheet.create({
     },
     input: {
         width: 250,
-        height: 40,
-        padding: 20,
-        color: 'black',
         borderBottomColor: 'grey',
         borderBottomWidth: 1,
+        padding: 15,
+        backgroundColor: 'white',
+        color: 'black',
         marginBottom: 20,
     },
     logInButton: {
