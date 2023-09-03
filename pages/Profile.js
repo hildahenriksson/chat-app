@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Pressable, TextInput } from 'react-native'
 import { AuthContext } from '../contexts/AuthContext';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const Profile = () => {
   const {handleLogout} = useContext(AuthContext);
   const [firstname, setFirstname] = useState('Hilda');
   const [lastname, setLastname] = useState('Henriksson');
   const [popupVisible, setPopupVisible] = useState(false);
+
 
   const toggleVisibility = () => {
     setPopupVisible(current => !current);
@@ -24,7 +26,7 @@ const Profile = () => {
               style={styles.editButton}
               onPress={() => toggleVisibility()}
           >
-              <Text>R</Text>
+              <FontAwesome5 name="pencil-alt" size={24} color="black" />
           </Pressable>
         </View>
         
@@ -76,14 +78,10 @@ const styles = StyleSheet.create({
     },
     nameBox: {
       flexDirection: 'row',
+      gap: 10,
     },
     username: {
       fontSize: 30,
-    },
-    editButton: {
-      backgroundColor: 'red',
-      padding: 10,
-      borderRadius: '30%',
     },
     logoutButton: {
       backgroundColor: 'lightblue',
@@ -94,7 +92,7 @@ const styles = StyleSheet.create({
     },
 
     popUp: {
-      backgroundColor: 'lightgrey',
+      backgroundColor: '#fafafa',
       width: 300,
       height: 350,
       position: 'absolute',
