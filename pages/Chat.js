@@ -12,11 +12,15 @@ const Chat = () => {
 
   const deleteMessage = async (id) => {
     try {
-      const response = await fetch('https://chat-api-with-auth.up.railway.app/'+id,
+      console.log(id);
+      const response = await fetch('https://chat-api-with-auth.up.railway.app/messages/'+id,
       {   method: 'DELETE',
           headers: {'Content-Type': 'application/json',
           'Authorization': `Bearer ${accessToken}`},   
       })
+
+      const data = await response.json();
+      console.log(data);
 
       if(data.status === 200) {
           console.log('deleted' + id)
@@ -64,7 +68,9 @@ const Chat = () => {
           body: JSON.stringify({content: messageInput})
       })
 
+      
       const data = await response.json();
+      console.log(data)
 
       if(data.status === 201) {
           console.log('success')
@@ -88,7 +94,7 @@ const Chat = () => {
 
   useEffect(() => {
     getAllMessages()
-  }, [])
+  }, [createMessage, deleteMessage])
 
   return (
     <View style={styles.container}>
