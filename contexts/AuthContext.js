@@ -7,6 +7,7 @@ export const AuthProvider = ({children}) => {
 
     const [accessToken, setAccessToken] = useState(null);
     const [userId, setUserId] = useState(null);
+    const [errorMessage, setErrorMessage] = useState('');
 
     
 
@@ -33,6 +34,7 @@ export const AuthProvider = ({children}) => {
                 setUserId(data.data._id)
             } else {
                 console.log(data.message)
+                setErrorMessage(data.message)
             }
 
         } catch(error) {
@@ -101,7 +103,7 @@ export const AuthProvider = ({children}) => {
 
 
     return (
-        <AuthContext.Provider value={{accessToken, userId, handleLogin, handleLogout, deleteUser}}>
+        <AuthContext.Provider value={{accessToken, userId, handleLogin, handleLogout, deleteUser, errorMessage}}>
             {children}
         </AuthContext.Provider>
     )

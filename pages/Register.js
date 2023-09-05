@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native';
 
 const Register = ({navigation: {goBack}}) => {
+
     const [usernameInput, setUsernameInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleRegister = async () => {
         try {
@@ -19,9 +21,11 @@ const Register = ({navigation: {goBack}}) => {
 
             if(data.status === 200) {
                 console.log('register ok')
+                goBack()
                 // Go back to log in
             } else {
                 console.log(data.message)
+                setErrorMessage(data.message)
             }
             
         } catch(error) {
@@ -52,6 +56,7 @@ const Register = ({navigation: {goBack}}) => {
                     onChangeText={newText => setPasswordInput(newText)}
                 ></TextInput>
             </View>
+            <Text style={styles.errorMessage}>{errorMessage}</Text>
             <Pressable
                 style={styles.registerButton}
                 onPress={() => handleRegister()}
@@ -75,23 +80,23 @@ const styles = StyleSheet.create({
         backgroundColor: 'lightblue',
         alignItems: 'center',
         justifyContent: 'center',
-      },
-      contentBox: {
-          backgroundColor: '#fff',
-          padding: 50,
-          borderRadius: '30%',
-          alignItems: 'center',
-          flexDirection: 'column',
-          gap: 20
-      },
-      heading: {
-          fontSize: '30',
-          fontWeight: 'bold'
-      },
-      inputBox: {
-          
-      },
-      input: {
+    },
+    contentBox: {
+        backgroundColor: '#fff',
+        padding: 50,
+        borderRadius: '30%',
+        alignItems: 'center',
+        flexDirection: 'column',
+        gap: 20
+    },
+    heading: {
+        fontSize: '30',
+        fontWeight: 'bold'
+    },
+    inputBox: {
+        
+    },
+    input: {
         width: 250,
         borderBottomColor: 'grey',
         borderBottomWidth: 1,
@@ -100,13 +105,16 @@ const styles = StyleSheet.create({
         color: 'black',
         marginBottom: 20,
     },
-      registerButton: {
-          backgroundColor: 'lightblue',
-          borderRadius: '30%',
-          padding: 20,
-          width: 250,
-          alignItems: 'center'
-      }
+    errorMessage: {
+        color: 'red'
+    },
+    registerButton: {
+        backgroundColor: 'lightblue',
+        borderRadius: '30%',
+        padding: 20,
+        width: 250,
+        alignItems: 'center'
+    }
 });
 
 export default Register

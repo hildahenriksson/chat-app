@@ -4,10 +4,11 @@ import { BorderlessButton } from 'react-native-gesture-handler';
 import { AuthContext } from '../contexts/AuthContext';
 
 const LogIn = ({navigation}) => {
-    const {handleLogin} = useContext(AuthContext);
+    const {handleLogin, errorMessage} = useContext(AuthContext);
 
     const [usernameInput, setUsernameInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
+    
 
   return (
     <View style={styles.container}>
@@ -29,7 +30,7 @@ const LogIn = ({navigation}) => {
                     onChangeText={newText => setPasswordInput(newText)}
                 ></TextInput>
             </View>
-            
+            <Text style={styles.errorMessage}>{errorMessage}</Text>
             <Pressable
                 style={styles.logInButton}
                 onPress={() => handleLogin(usernameInput, passwordInput)}
@@ -76,6 +77,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         color: 'black',
         marginBottom: 20,
+    },
+    errorMessage: {
+        color: 'red',
     },
     logInButton: {
         backgroundColor: 'lightblue',
