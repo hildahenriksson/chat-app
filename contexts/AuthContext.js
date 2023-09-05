@@ -68,13 +68,40 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+    const deleteUser = async () => {
+        try {
+            const response = await fetch('https://chat-api-with-auth.up.railway.app/users',
+            {   method: 'DELETE',
+                headers: {'Authorization': `Bearer ${accessToken}`},   
+            })
+        
+            const data = await response.json();
+            console.log(data);
+        
+            if(data.status === 200) {
+                console.log('deleted')
+                
+            } else {
+                console.log(data.message)
+            }
+
+            await AsyncStorage.removeItem('accessToken')
+            await AsyncStorage.removeItem('userId')
+            setAccessToken(null)
+            setUserId(null)
+    
+        } catch(error) {
+            console.log(error)
+        }
+      }
+
     useEffect(() => {
         isLoggedIn()
-    }, [])
+    }, [deleteUser])
 
 
     return (
-        <AuthContext.Provider value={{accessToken, userId, handleLogin, handleLogout}}>
+        <AuthContext.Provider value={{accessToken, userId, handleLogin, handleLogout, deleteUser}}>
             {children}
         </AuthContext.Provider>
     )
