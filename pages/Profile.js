@@ -4,7 +4,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 const Profile = () => {
-  const {handleLogout} = useContext(AuthContext);
+  const {handleLogout, deleteUser} = useContext(AuthContext);
   const [firstname, setFirstname] = useState('Hilda');
   const [lastname, setLastname] = useState('Henriksson');
   const [popupVisible, setPopupVisible] = useState(false);
@@ -35,6 +35,12 @@ const Profile = () => {
             onPress={() => handleLogout()}
         >
             <Text>Log Out</Text>
+        </Pressable>
+        <Pressable
+            style={styles.logoutButton}
+            onPress={() => deleteUser()}
+        >
+            <Text>Delete user</Text>
         </Pressable>
 
 
