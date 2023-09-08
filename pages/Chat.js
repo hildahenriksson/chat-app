@@ -74,6 +74,7 @@ const Chat = () => {
 
       if(data.status === 201) {
           console.log('success')
+          setMessageInput('')
           
       } else {
           console.log(data.message)
@@ -97,7 +98,7 @@ const Chat = () => {
   }, [createMessage, deleteMessage])
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} >
       <View style={styles.chatBox}>
         <FlatList data={allMessages} renderItem={({item}) => (
             <View style={[styles.message, item.user?._id === userId ? styles.right : styles.left]}>
@@ -117,7 +118,8 @@ const Chat = () => {
       <View style={styles.inputBox}>
         <TextInput
             style={styles.input}
-            placeholder='Write'
+            placeholder='Write your message'
+            value={messageInput}
             onChangeText={newText => setMessageInput(newText)}
             
         ></TextInput>

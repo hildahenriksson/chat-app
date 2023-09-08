@@ -78,7 +78,7 @@ const Profile = () => {
 
   useEffect(() => {
     getUser()
-  }, [toggleVisibility, updateUser])
+  }, [updateUser])
 
   return (
     <View style={styles.container}>
