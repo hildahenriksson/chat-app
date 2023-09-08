@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Camera, CameraType, FlashMode } from 'expo-camera'
 import * as MediaLibrary from 'expo-media-library'
-import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { FontAwesome, Ionicons, Entypo } from '@expo/vector-icons';
 import ImagePreview from '../assets/components/ImagePreview';
 

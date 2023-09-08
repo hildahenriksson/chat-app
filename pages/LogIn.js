@@ -1,10 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react'
-import { StyleSheet, Text, View, TextInput, Button, Pressable } from 'react-native';
-import { BorderlessButton } from 'react-native-gesture-handler';
+import React, { useContext, useState } from 'react'
+import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native';
 import { AuthContext } from '../contexts/AuthContext';
 
 const LogIn = ({navigation}) => {
-    const {handleLogin, errorMessage, isLoggedIn} = useContext(AuthContext);
+    const {handleLogin, errorMessage} = useContext(AuthContext);
 
     const [usernameInput, setUsernameInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
         gap: 20
     },
     heading: {
-        fontSize: '30',
+        fontSize: 30,
         fontWeight: 'bold'
     },
     input: {

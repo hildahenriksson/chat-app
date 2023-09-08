@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native';
 
 const Register = ({navigation: {goBack}}) => {
@@ -90,11 +90,8 @@ const styles = StyleSheet.create({
         gap: 20
     },
     heading: {
-        fontSize: '30',
+        fontSize: 30,
         fontWeight: 'bold'
-    },
-    inputBox: {
-        
     },
     input: {
         width: 250,

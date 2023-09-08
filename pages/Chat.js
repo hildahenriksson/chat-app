@@ -136,14 +136,14 @@ const Chat = () => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: 'lightgrey',
+      backgroundColor: '#e0e0e0',
       alignItems: 'center',
       flexDirection: 'column'
     },
     chatBox: {
       width: '100%',
       padding: 10,
-      backgroundColor: 'lightgrey',
+      backgroundColor: '#e0e0e0',
       flex: 15
     },
     message: {
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
       alignSelf: 'flex-start'
     },
     rightContent: {
-      backgroundColor: 'blue',
+      backgroundColor: 'lightblue',
       alignSelf: 'flex-end'
     },
     inputBox: {
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
       flex: 5
     },
     button: {
-      backgroundColor: 'lightblue',
+      backgroundColor: '#dcedc9',
       height: '90%',
       borderRadius: '30%',
       alignItems: 'center',

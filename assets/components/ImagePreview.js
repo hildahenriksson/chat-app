@@ -5,7 +5,6 @@ import * as MediaLibrary from 'expo-media-library'
 
 
 const ImagePreview = ({picture, setPicture}) => {
-    console.log('pictureeeeeeeee' + picture)
 
     const savePicture = async () => {
         try {
