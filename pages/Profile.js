@@ -139,6 +139,8 @@ const Profile = () => {
 
 const styles = StyleSheet.create({
     container: {
+      flexDirection: 'column',
+      gap: 20,
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center',

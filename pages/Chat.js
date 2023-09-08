@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     },
     chatBox: {
       width: '100%',
-      // height: 600,
+      padding: 10,
       backgroundColor: 'lightgrey',
       flex: 15
     },
@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
     },
     messageInfo: {
       flexDirection: 'row',
+      marginHorizontal: 10,
       gap: 10
     },
     textfield: {

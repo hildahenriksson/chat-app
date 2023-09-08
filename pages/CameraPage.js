@@ -95,13 +95,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignContent: 'center',
     justifyContent: 'space-between',
-    paddingTop: 40,
+    paddingTop: 20,
   },
   buttonsTop: {
     flexDirection: 'row',
     alignSelf: 'flex-end',
     justifyContent: 'space-between',
-    marginTop: 20,
   },
   buttonsBottom: {
     flexDirection: 'row',
