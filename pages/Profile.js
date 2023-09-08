@@ -4,19 +4,81 @@ import { AuthContext } from '../contexts/AuthContext';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 const Profile = () => {
-  const {handleLogout, deleteUser} = useContext(AuthContext);
-  const [firstname, setFirstname] = useState('Hilda');
-  const [lastname, setLastname] = useState('Henriksson');
+  const {accessToken, handleLogout, deleteUser} = useContext(AuthContext);
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [firstnameInput, setFirstnameInput] = useState('');
+  const [lastnameInput, setLastnameInput] = useState('');
   const [popupVisible, setPopupVisible] = useState(false);
-
 
   const toggleVisibility = () => {
     setPopupVisible(current => !current);
   };
 
+  const getUser = async () => {
+    try {
+      const response = await fetch('https://chat-api-with-auth.up.railway.app/users',
+      {   method: 'GET',
+          headers: {'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`},
+          
+      })
+      const data = await response.json();
+      
+
+      if(data.status === 200) {
+
+        if(data.data.firstname) {
+          setFirstname(data.data.firstname)
+        } else {
+          console.log('rad 34')
+          setFirstname(data.data.username)
+        }
+
+        if(data.data.lastname) {
+          setLastname(data.data.lastname)
+        }
+          
+      } else {
+          console.log(data.message)
+      }
+
+    } catch(error) {
+        console.log(error)
+    }
+  }
+
+  const updateUser = async () => {
+    try {
+      const response = await fetch('https://chat-api-with-auth.up.railway.app/users',
+      {   method: 'PATCH',
+          headers: {'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`},
+          body: JSON.stringify({
+            firstname: firstnameInput,
+            lastname: lastnameInput
+          })
+          
+          
+      })
+
+      const data = await response.json();
+      console.log(data)
+
+      if(data.status === 200) {
+          console.log('patch ok')
+      } else {
+          console.log(data.message)
+      }
+
+    } catch(error) {
+        console.log(error)
+    }
+  }
+
   useEffect(() => {
-    
-  }, [toggleVisibility])
+    getUser()
+  }, [toggleVisibility, updateUser])
 
   return (
     <View style={styles.container}>
@@ -50,21 +112,21 @@ const Profile = () => {
             <TextInput
                 style={styles.input}
                 placeholder='Firstname'
-                value={firstname}
+                value={firstnameInput}
                 
-                onChangeText={newText => setFirstname(newText)}
+                onChangeText={newText => setFirstnameInput(newText)}
             ></TextInput>
             <Text>Lastname</Text>
             <TextInput
                 style={styles.input}
                 placeholder='Lastname'
-                value={lastname}
+                value={lastnameInput}
                 
-                onChangeText={newText => setLastname(newText)}
+                onChangeText={newText => setLastnameInput(newText)}
             ></TextInput>
             <Pressable
             style={styles.saveButton}
-            onPress={() => toggleVisibility()}
+            onPress={() => {updateUser(), toggleVisibility()}}
         >
             <Text>Save</Text>
         </Pressable>

@@ -1,7 +1,0 @@
-
-
-do:
-
-patch - update user (update firstname and lastname)
-
-camera
