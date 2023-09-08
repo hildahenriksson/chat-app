@@ -2,4 +2,6 @@
 
 do:
 
-patch - update user
+patch - update user (update firstname and lastname)
+
+camera

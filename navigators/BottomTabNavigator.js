@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Camera from '../pages/Camera';
 import Profile from '../pages/Profile';
 import { Ionicons, Entypo } from '@expo/vector-icons';
+import CameraPage from '../pages/CameraPage';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,7 +18,7 @@ export default function BottomTagNavigator() {
             <Ionicons name="person-circle" size={34} color="black" />
           ),
         }}/>
-      <Tab.Screen name="Camera" component={Camera} 
+      <Tab.Screen name="Camera" component={CameraPage} 
         options={{
           tabBarLabel: '',
           tabBarIcon: () => (
