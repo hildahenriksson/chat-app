@@ -1,13 +1,14 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { StyleSheet, Text, View, TextInput, Button, Pressable } from 'react-native';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import { AuthContext } from '../contexts/AuthContext';
 
 const LogIn = ({navigation}) => {
-    const {handleLogin, errorMessage} = useContext(AuthContext);
+    const {handleLogin, errorMessage, isLoggedIn} = useContext(AuthContext);
 
     const [usernameInput, setUsernameInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
+
     
 
   return (
