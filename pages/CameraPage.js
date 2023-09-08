@@ -3,6 +3,7 @@ import { Camera, CameraType, FlashMode } from 'expo-camera'
 import * as MediaLibrary from 'expo-media-library'
 import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { FontAwesome, Ionicons, Entypo } from '@expo/vector-icons';
+import ImagePreview from '../assets/components/ImagePreview';
 
 const CameraPage = () => {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -34,23 +35,7 @@ const CameraPage = () => {
     }
   }
 
-  const savePicture = async () => {
-    try {
-      const asset = await MediaLibrary.createAssetAsync(picture.uri)
-      
-      const album = await MediaLibrary.getAlbumAsync('Expo');
-
-      if (album == null) {
-        await MediaLibrary.createAlbumAsync('Expo', asset, false)
-      } else {
-        await MediaLibrary.addAssetsToAlbumAsync(asset, album.id, false);
-      }
-
-      setPicture(null)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  
 
   useEffect(() => {
     (async () => {
@@ -72,19 +57,8 @@ const CameraPage = () => {
 
 
   if (picture !== null) {
-    return (<View  style={styles.container}>
-        <Image source={{uri: picture.uri}} style={{flex: 1}}/>
-        <View style={styles.buttonsContainer}>
-            <TouchableOpacity style={styles.generalButton}>
-              <FontAwesome name="trash-o" size={24} color="white" onPress={() => setPicture(null)}/>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.generalButton}>
-              <Text style={styles.saveText} onPress={() => savePicture()}>Save</Text>
-            </TouchableOpacity>
-
-        </View>
-
-      </View>
+    return (
+      <ImagePreview picture={picture} setPicture={setPicture}/>
     )
   
   } else {
